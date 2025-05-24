@@ -1,4 +1,5 @@
 import { db } from "../../../hooks.server"; 
+import fs from "fs/promises";
 
 export const load = (async () => {
     return {
@@ -35,5 +36,25 @@ export const actions = {
             data: { isAvailableForPurchase }
         });
 
+    },
+
+    deleteProduct: async({request}) => {
+        const formData = await request.formData();
+        const productId = formData.get("id") as string;
+        const product = await db.product.findUnique({
+            where: { id: productId },
+            select: {_count:{select:{Order:true}}}
+        });
+
+        if(product && product._count.Order > 0) {
+            return { error: "Cannot delete product with existing orders" };
+        }
+
+        const deletedProduct = await db.product.delete({
+            where: { id: productId }
+        });
+
+        await fs.unlink(deletedProduct.filePath);
+        await fs.unlink(`static${deletedProduct.imagePath}`);
     }
 };

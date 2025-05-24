@@ -6,6 +6,7 @@
 	import { formatCurrency, formatNumber } from '$lib/utils.js';
 	import { CheckCircle, XCircle, MoreVertical } from 'lucide-svelte';
 	import { enhance } from '$app/forms';
+	import { Input } from '$lib/components/ui/input';
 
 	let { data } = $props();
 </script>
@@ -61,7 +62,7 @@
 							</DropdownMenu.Item>
 							<!-- Toggle Active Status -->
 							<form action="?/toggleAvailability" method="POST" use:enhance>
-								<Button type="submit" class="w-full">
+								<button type="submit" class="w-full">
 									<DropdownMenu.Item>
 										{#if product.isAvailableForPurchase}
 											Deactivate
@@ -69,7 +70,7 @@
 											Activate
 										{/if}
 									</DropdownMenu.Item>
-								</Button>
+								</button>
 								<input type="hidden" name="id" value={product.id} />
 								<input
 									type="checkbox"
@@ -79,7 +80,14 @@
 								/>
 							</form>
 							<!-- Delete -->
-							<form action=""></form>
+							<form action="?/deleteProduct" use:enhance method="POST">
+								<button type="submit" class="w-full text-destructive" disabled={product._count.Order > 0}>
+									<DropdownMenu.Item>
+										Delete
+									</DropdownMenu.Item>
+								</button>
+								<input type="hidden" name="id" value={product.id} />
+							</form>
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 				</Table.Cell>
