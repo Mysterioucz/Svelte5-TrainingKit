@@ -26,26 +26,22 @@ export const actions = {
 			await fs.mkdir('static/products', { recursive: true });
 			const imagePath = `/products/${Math.random()}-${form.data.image.name}`;
 			await fs.writeFile(`static${imagePath}`, Buffer.from(await form.data.image.arrayBuffer()));
-			try {
-				await db.product.create({
-					data: {
-						name: form.data.name,
-						description: form.data.description,
-						priceInCents: form.data.priceInCents,
-						filePath,
-						imagePath,
-						isAvailableForPurchase: false
-					}
-				});
-				return { success: true };
-			} catch (error) {
-				console.log(error);
-			}
-
-			redirect(303, '/admin/products');
+			await db.product.create({
+				data: {
+					name: form.data.name,
+					description: form.data.description,
+					priceInCents: form.data.priceInCents,
+					filePath,
+					imagePath,
+					isAvailableForPurchase: false
+				}
+			});
 		} catch (error) {
 			console.error('Error creating product:', error);
 			return fail(500, { form, error: 'Failed to create product' });
 		}
+
+		throw redirect(303, '/admin/products');
+
 	}
 };

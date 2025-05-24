@@ -19,10 +19,6 @@
 	const image = fileProxy(formData, 'image');
 	const file = fileProxy(formData, 'file');
 
-	$effect(() => {
-		console.log($file); // this is just to trigger reactivity — you can remove `console.log` if you want
-		console.log($image);
-	});
 </script>
 
 <PageHeader>Add Product</PageHeader>
@@ -32,6 +28,7 @@
 	class="my-4 space-y-8"
 	action="/admin/products/new"
 	enctype="multipart/form-data"
+	use:enhance
 >
 	<Form.Field {form} name="name">
 		<Form.Control>
