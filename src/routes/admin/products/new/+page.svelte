@@ -2,28 +2,90 @@
 	import PageHeader from '$lib/components/PageHeader.svelte';
 	import * as Form from '$lib/components/ui/form';
 	import { addFormSchema } from '$lib/formSchema.js';
-	import { superForm } from 'sveltekit-superforms';
+	import { fileProxy, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters'; // Adjust the path as needed
-	import { Input } from "$lib/components/ui/input"
-	
+	import { Input } from '$lib/components/ui/input';
+	import { Button } from '$lib/components/ui/button';
+	import { formatCurrency } from '$lib/utils.js';
+	import { Textarea } from '$lib/components/ui/textarea';
+	import { Loader } from 'lucide-svelte';
 
-	let {data} = $props();
-	let form = superForm(data.form,{
+	let { data } = $props();
+	const form = superForm(data.form, {
 		validators: zodClient(addFormSchema)
 	});
-	let {form:formData, enhance, delayed} = form;
+
+	const { form: formData, enhance, delayed } = form;
+	const image = fileProxy(formData, 'image');
+	const file = fileProxy(formData, 'file');
+
+	$effect(() => {
+		console.log($file); // this is just to trigger reactivity — you can remove `console.log` if you want
+		console.log($image);
+	});
 </script>
 
-<form method="POST" class="space-y-8" action="/admin/product/new" enctype="multipart/form-data">
+<PageHeader>Add Product</PageHeader>
+
+<form
+	method="POST"
+	class="my-4 space-y-8"
+	action="/admin/products/new"
+	enctype="multipart/form-data"
+>
 	<Form.Field {form} name="name">
 		<Form.Control>
-			
 			{#snippet children({ props })}
 				<Form.Label>Name</Form.Label>
 				<Input {...props} bind:value={$formData.name} />
 			{/snippet}
 		</Form.Control>
-		<Form.Description />
 		<Form.FieldErrors />
 	</Form.Field>
+	<Form.Field {form} name="priceInCents">
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>Price in cents</Form.Label>
+				<Input {...props} bind:value={$formData.priceInCents} />
+			{/snippet}
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+	<div class="text-muted-foreground">
+		{formatCurrency($formData.priceInCents / 100)}
+	</div>
+	<Form.Field {form} name="description">
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>Description</Form.Label>
+				<Textarea {...props} bind:value={$formData.description} />
+			{/snippet}
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+	<Form.Field {form} name="file">
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>File</Form.Label>
+				<Input {...props} type="file" bind:files={$file} />
+			{/snippet}
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+	<Form.Field {form} name="image">
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>Image</Form.Label>
+				<Input {...props} accept="images/*" type="file" bind:files={$image} />
+			{/snippet}
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+	<Button type="submit">
+		{#if $delayed}
+			<Loader class="size-4 animate-spin" />
+		{:else}
+			Save
+		{/if}
+	</Button>
 </form>

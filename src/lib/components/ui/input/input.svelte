@@ -20,6 +20,7 @@
 </script>
 
 {#if type === "file"}
+<!-- I have remove the bind:values since it's not neccesary to bind and it's causing bug when uploading file -->
 	<input
 		bind:this={ref}
 		data-slot="input"
@@ -30,8 +31,8 @@
 			className
 		)}
 		type="file"
-		bind:files
-		bind:value
+		bind:files 
+		
 		{...restProps}
 	/>
 {:else}
