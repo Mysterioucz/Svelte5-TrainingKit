@@ -55,10 +55,10 @@
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content>
 							<DropdownMenu.Item>
-								<a href={`/admin/products/${product.id}/download`} download> Download </a>
+								<a class="w-full" href={`/admin/products/${product.id}/download`} download> Download </a>
 							</DropdownMenu.Item>
 							<DropdownMenu.Item>
-								<a href={`/admin/products/${product.id}/edit`}> Edit </a>
+								<a class="w-full"href={`/admin/products/${product.id}/edit`}> Edit </a>
 							</DropdownMenu.Item>
 							<!-- Toggle Active Status -->
 							<form action="?/toggleAvailability" method="POST" use:enhance>
@@ -81,10 +81,12 @@
 							</form>
 							<!-- Delete -->
 							<form action="?/deleteProduct" use:enhance method="POST">
-								<button type="submit" class="w-full text-destructive" disabled={product._count.Order > 0}>
-									<DropdownMenu.Item>
-										Delete
-									</DropdownMenu.Item>
+								<button
+									type="submit"
+									class="text-destructive w-full"
+									disabled={product._count.Order > 0}
+								>
+									<DropdownMenu.Item>Delete</DropdownMenu.Item>
 								</button>
 								<input type="hidden" name="id" value={product.id} />
 							</form>
