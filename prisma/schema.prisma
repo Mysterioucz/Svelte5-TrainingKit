@@ -42,6 +42,7 @@ model Session {
   id        String   @id
   userId    String
   user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
 }
 
 model Order {

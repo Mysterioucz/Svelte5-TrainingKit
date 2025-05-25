@@ -4,7 +4,6 @@ import { Lucia } from "lucia";
 import { dev } from "$app/environment";
 // Lucia Hooks
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
-import { lucia } from "$lib/server/auth";
 import type { Handle } from "@sveltejs/kit";
 
 export const db = new PrismaClient()
@@ -27,7 +26,7 @@ declare module "lucia" {
 }
 
 // Lucia Hooks
-export const handle: Handle = async ({ event, resolve }) => {
+export const handle = async ({ event, resolve }) => {
 	const sessionId = event.cookies.get(lucia.sessionCookieName);
 	if (!sessionId) {
 		event.locals.user = null;

@@ -51,6 +51,7 @@
 		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@prisma/client": "^6.8.2",
 		"lucia": "^3.2.2",
-		"lucide-svelte": "^0.511.0"
+		"lucide-svelte": "^0.511.0",
+		"oslo": "^1.2.1"
 	}
 }
