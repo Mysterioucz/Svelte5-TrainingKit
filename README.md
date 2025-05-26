@@ -104,6 +104,13 @@ npm run dev
 
 The app will be available at `http://127.0.0.1:5173` (or the port SvelteKit uses).
 
+### 6. For login you can use admin account or create your own user account
+
+```
+User: admin
+Password: password
+```
+
 ## 📎 API Routes
 
 | Method | Endpoint     | Description              |
