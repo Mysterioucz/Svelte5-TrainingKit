@@ -17,26 +17,26 @@
 ### 🧑‍💻 User Views
 
 #### 🏠 Home Page
-<img src="https://github.com/user-attachments/assets/21c5b256-2a8a-4a4d-829a-21d6afc5dfde" width="600"/>
+<img src="https://github.com/user-attachments/assets/21c5b256-2a8a-4a4d-829a-21d6afc5dfde" width="450"/>
 
 #### 🛍️ Product Page
-<img src="https://github.com/user-attachments/assets/5630079a-2a40-4772-9e54-abaab5528ae6" width="600"/>
+<img src="https://github.com/user-attachments/assets/5630079a-2a40-4772-9e54-abaab5528ae6" width="450"/>
 
 #### 💳 Purchase Page
-<img src="https://github.com/user-attachments/assets/24a58fa1-25a0-4b44-a1c0-037e7093a53a" width="600"/>
+<img src="https://github.com/user-attachments/assets/24a58fa1-25a0-4b44-a1c0-037e7093a53a" width="450"/>
 
 ---
 
 ### 🛠️ Admin Views
 
 #### 📊 Dashboard
-<img src="https://github.com/user-attachments/assets/c43f5adf-220b-4f5d-b6ac-702fb653d650" width="600"/>
+<img src="https://github.com/user-attachments/assets/c43f5adf-220b-4f5d-b6ac-702fb653d650" width="450"/>
 
 #### 📦 Product Management
-<img src="https://github.com/user-attachments/assets/59d24cfe-375c-4af4-aa09-d32435205fab" width="600"/>
+<img src="https://github.com/user-attachments/assets/59d24cfe-375c-4af4-aa09-d32435205fab" width="450"/>
 
 #### 👥 Customer List
-<img src="https://github.com/user-attachments/assets/deb137b0-5910-4968-9b9d-fda4a5eba073" width="600"/>
+<img src="https://github.com/user-attachments/assets/deb137b0-5910-4968-9b9d-fda4a5eba073" width="450"/>
 
 ## 🛠️ Tech Stack
 
