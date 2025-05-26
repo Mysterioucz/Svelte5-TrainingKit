@@ -50,27 +50,47 @@ export const actions = {
 			}
 		});
 
+		let session;
 		if (!existingUser) {
-            console.log('User does not exist');
-			return; // TODO if user does not exist
+			console.log('User does not exist, Creating new user');
+			const hashedPassword = await new Argon2id().hash(form.data.password);
+			const userId = generateId(15);
+			await db.user.create({
+				data: {
+					email: `${form.data.username}@gmail.com`,
+					hashedPassword,
+					username: form.data.username,
+					isAdmin: false,
+					id: userId
+				}
+			});
+			session = await lucia.createSession(userId, {});
+		} else {
+			console.log('User exists, checking password');
+			// User exists, check password
+			const validPassword = await new Argon2id().verify(
+				existingUser.hashedPassword!,
+				form.data.password
+			);
+
+			if (!validPassword) {
+				console.log('Invalid password');
+				alert('Invalid password');
+				return; // TODO if password is incorrect
+			}
+			session = await lucia.createSession(existingUser.id, {});
+
 		}
 
-		const validPassword = await new Argon2id().verify(
-			existingUser.hashedPassword!,
-			form.data.password
-		);
-
-		if (!validPassword) {
-            console.log('Invalid password');
-			return; // TODO if password is incorrect
-		}
-
-		const session = await lucia.createSession(existingUser.id, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
 		event.cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '.',
 			...sessionCookie.attributes
 		});
-        throw redirect(302, '/admin');
+		if(existingUser?.isAdmin) {
+			throw redirect(302, '/admin');
+		}else{
+			throw redirect(302, '/');
+		}
 	}
 };

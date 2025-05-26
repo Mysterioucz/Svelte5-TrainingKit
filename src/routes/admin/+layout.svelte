@@ -14,6 +14,14 @@
     {@render navLink({href: '/admin/orders', text:'sales'})}
 
     <!-- logout button -->
+     <form method="POST" action="/logout" class="justify-self-end">
+		<button
+			type="submit"
+			class="cursor-pointer hover:bg-red-600 focus-visible:bg-secondary focus-visible:text-secondary-foreground p-4 capitalize"
+		>
+			Logout
+		</button>
+	</form>
 </Nav>
 
 <div class="container mx-auto px-4 py-8"> <!-- modified diff from tutorial--> 
